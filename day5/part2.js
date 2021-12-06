@@ -29,24 +29,9 @@ lines.forEach((line) => {
     if (step.y < 0) step.y = -1;
     if (step.y > 0) step.y = 1;
 
-    if (Math.abs(step.x) + Math.abs(step.y) <= 1) {
-        const start = line.start;
-        const end = line.end;
-        if (start.x > end.x)
-            [start.x, end.x] = [end.x, start.x];
-        if (start.y > end.y)
-                [start.y, end.y] = [end.y, start.y];
-        for (let y = start.y; y <= end.y; y++) {
-            for (let x = start.x; x <= end.x; x++) {
-                map[y][x]++;
-            }
-        }
-    } else {
-        for (let x = startPoint.x, y = startPoint.y; x != endPoint.x && y != endPoint.y; x += step.x, y += step.y) {
-            map[y][x]++;
-        }
-        map[endPoint.y][endPoint.x]++;
-    }
+    for (let x = startPoint.x, y = startPoint.y; x != endPoint.x || y != endPoint.y; x += step.x, y += step.y)
+        map[y][x]++;
+    map[endPoint.y][endPoint.x]++;
 });
 
 for (let y = 0; y <= max.y; y++) {
